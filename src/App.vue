@@ -1,19 +1,27 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view :films="films"></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import {eventBus} from "./main.js"
+
 
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  name: "app",
+  data () {
+    return {
+      films: [],
+    }
+  },
+  mounted () {
+    fetch("https://ghibliapi.herokuapp.com/films/")
+    .then(res => res.json())
+    .then(data => this.films = data)
+    }
   }
-}
+
 </script>
 
 <style>
